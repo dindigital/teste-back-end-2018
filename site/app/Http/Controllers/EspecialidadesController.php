@@ -6,6 +6,8 @@ use DB;
 use Illuminate\Http\Request;
 use Validator;
 use Marcus\Especialidades;
+use Marcus\Medicos;
+use Marcus\Http\Requests\EpecialidadesRequest;
 
 class EspecialidadesController extends Controller
 {
@@ -24,21 +26,45 @@ class EspecialidadesController extends Controller
 		return view('admin.especialidades.cadastrar');
 	}
 
-	public function inserir(Request $request){
-
-		$nome_especialidade = $request->get('especialidade');
-		$especialidade = Especialidades::where('especialidade', '=', $nome_especialidade)->count();
-		if($especialidade > 0 ){
-			return view('admin.especialidades.cadastrar')->with('erro','Especialidade já cadastrada');
-		}else{
-			$especialidade = new Especialidades($request->all());
-			$especialidade->save();
-			return redirect()->action('EspecialidadesController@indexAdmin');
-		}
+	public function inserir(EpecialidadesRequest $request){
+		
+		$especialidade = new Especialidades($request->all());
+		$especialidade->save();
+		return redirect()->action('EspecialidadesController@indexAdmin');
+		
 	}
 
-	
+
+	public function excluir(Request $request){
+		$id = $request->get('especialidade');
+		$medicosComEspecialidade = Medicos::where('especialidade', '=', $id)->count();
+
+
+		if($medicosComEspecialidade >= 1){
+
+			$data=[
+				'status'=>'0',
+				'msg'=>'Especialidade sendo utilizada'
+			];
+
+		}else{
+			$destroy = Especialidades::destroy($id);
+			if ($destroy){
+				$data=[
+					'status'=>'1',
+					'msg'=>'ok'
+				];
+			}else{
+				$data=[
+					'status'=>'0',
+					'msg'=>'Falha ao excluir a especialidade'
+				];
+			}
+		}
+
+		return response()->json($data);
 
     #custom#
 
+	}
 }

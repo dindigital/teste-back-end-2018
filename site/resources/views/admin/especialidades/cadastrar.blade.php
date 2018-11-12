@@ -11,12 +11,16 @@
         <div class="form-group row">
           <label for="especialidade" class="col-sm-4 col-form-label text-md-right">Especialidade</label>
           <div class="col-md-6">
-            <input id="especialidade" type="text" class="form-control" name="especialidade" value="{{ old('especialidade') }}" required autofocus />
+            <input id="especialidade" type="text" class="form-control" name="especialidade" value="{{isset($especialidade) ? $especialidade : '' }}" required autofocus />
           </div>
         </div>
-          @if (isset($erro) )
+        @if (count($errors) > 0)
         <div class="alert alert-danger">
-         {{ $erro }}
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
     @endif
      <div class="form-group row mb-0">

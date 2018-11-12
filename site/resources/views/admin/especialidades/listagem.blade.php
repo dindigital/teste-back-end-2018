@@ -7,12 +7,14 @@
     <thead>
       <tr>
         <th>Especialidade</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
      @foreach($especialidades as $especialidade)
      <tr>
       <td>{{$especialidade->especialidade}}</td>
+      <td><a href="javascript:void(0)"  class="excluir_especialidade" data-especialidade="{{$especialidade->id}}"><i class="fa fa-trash"></i></a></td>
     </tr>
      @endforeach
     </tbody>
