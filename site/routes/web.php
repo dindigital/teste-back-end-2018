@@ -33,6 +33,9 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::get('/medicos', 'MedicosController@indexAdmin')->middleware('auth');
 	Route::get('/medicos/cadastrar', 'MedicosController@cadastrar')->middleware('auth');
 	Route::post('/medicos/cadastrar', 'MedicosController@inserir')->middleware('auth');
+	Route::post('/medicos/excluir', 'MedicosController@excluir')->middleware('auth');
+	Route::get('/medicos/editar/{id}', 'MedicosController@alterar')->middleware('auth');
+	Route::put('/medicos/editar', 'MedicosController@editar')->middleware('auth');
 	//Especialidades
 	Route::get('/especialidades', 'EspecialidadesController@indexAdmin')->middleware('auth');
 	

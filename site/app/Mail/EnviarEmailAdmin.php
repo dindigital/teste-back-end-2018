@@ -19,7 +19,7 @@ class EnviarEmailAdmin extends Mailable
      *
      * @return void
      */
-    public function __construct(Request $request, User $admin)
+    public function __construct(Request $request, User $admin,$emai_admin)
     {
         $this->formulario = $request->all();
         $this->admin  = $admin;

@@ -8,6 +8,7 @@ use Validator;
 use Marcus\Formularios;
 use Marcus\User;
 use Mail;
+use Log;
 use Marcus\Mail\EnviarEmailAdmin;
 
 
@@ -19,10 +20,15 @@ class FormulariosController extends Controller
  	#custom#
 	public function enviar(Request $request){
 		$formulario = new Formularios($request->all());
+		$formulario->save();
 		$admin = (User::all());
 		$admin = $admin[0];
-		Mail::to($admin->email)->send(new EnviarEmailAdmin($request,$admin));
-		$formulario->save();
+		$email_admin = config('MAIL_USERNAME');
+		try{
+			Mail::to($admin->email)->send(new EnviarEmailAdmin($request,$admin,$email_admin));
+		}catch(\Exception $e){
+			Log::critical('Erro no envio do email');
+		}
 		return redirect()->action("HomeController@sucesso");
 
 	}
