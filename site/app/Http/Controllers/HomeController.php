@@ -25,11 +25,9 @@ class HomeController extends Controller
     public function index()
     {
         $medicos = Medicos::all();
-         $medicoAleatorio = $medicos[mt_rand(0, count($medicos) - 1)];
         $dados_site = array(
             'medicos' => $medicos,
-            'menu'=>true,
-            'medicoAleatorio' =>  $medicoAleatorio
+            'menu'=>true
         );
         return view('site.index')->with($dados_site);
     }
