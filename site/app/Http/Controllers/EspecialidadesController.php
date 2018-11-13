@@ -23,7 +23,7 @@ class EspecialidadesController extends Controller
 
 	public function cadastrar(){
 
-		return view('admin.especialidades.cadastrar');
+		return view('admin.especialidades.cadastrar')->with('especialidade', new Especialidades());
 	}
 
 	public function inserir(EpecialidadesRequest $request){
@@ -32,6 +32,20 @@ class EspecialidadesController extends Controller
 		$especialidade->save();
 		return redirect()->action('EspecialidadesController@indexAdmin');
 		
+	}
+
+
+	public function editar(EpecialidadesRequest $request){
+		$id = $request->get('id');
+		$especialidade = Especialidades::find($id);
+		$especialidade->update($request->all());
+		$especialidade->save();
+		return redirect()->action('EspecialidadesController@indexAdmin');
+	}
+
+	public function alterar($id){
+		$especialidade = Especialidades::find($id);
+		return view('admin.especialidades.cadastrar')->with('especialidade', $especialidade);
 	}
 
 

@@ -78,8 +78,6 @@ class MedicosController extends Controller
 	public function editar(MedicoRequest $request){
 		$id = $request->get('id');
 $medico = Medicos::find($id);
-
-
 		$medico->update($request->all());
 		$upload  = $this->inserirImagem($request);
 		if( $upload !== false){
@@ -91,10 +89,6 @@ $medico = Medicos::find($id);
 		}
 			$medico->save();
 					return redirect()->action('MedicosController@indexAdmin');
-
-
-
-
 	}
 
 	public function inserir(MedicoRequest $request)

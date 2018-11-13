@@ -13,7 +13,7 @@
     <tbody>
      @foreach($especialidades as $especialidade)
      <tr>
-      <td>{{$especialidade->especialidade}}</td>
+      <td><a href="especialidades/editar/{{$especialidade->id}}">{{$especialidade->especialidade}}</a></td>
       <td><a href="javascript:void(0)"  class="excluir_especialidade" data-especialidade="{{$especialidade->id}}"><i class="fa fa-trash"></i></a></td>
     </tr>
      @endforeach

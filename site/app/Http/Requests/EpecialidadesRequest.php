@@ -24,7 +24,7 @@ class EpecialidadesRequest extends FormRequest
     public function rules()
     {
         return [
-            'especialidade' => 'required|unique:especialidades|max:255',
+            'especialidade' => 'required|unique:especialidades|min:5|max:255',
             //
         ];
     }

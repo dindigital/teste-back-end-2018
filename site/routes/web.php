@@ -38,8 +38,9 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::put('/medicos/editar', 'MedicosController@editar')->middleware('auth');
 	//Especialidades
 	Route::get('/especialidades', 'EspecialidadesController@indexAdmin')->middleware('auth');
-	
 	Route::get('/especialidades/cadastrar', 'EspecialidadesController@cadastrar')->middleware('auth');
+	Route::get('/especialidades/editar/{id}', 'EspecialidadesController@alterar')->middleware('auth');
+	Route::put('/especialidades/editar', 'EspecialidadesController@editar')->middleware('auth');
 	Route::post('/especialidades/cadastrar', 'EspecialidadesController@inserir')->middleware('auth');
 	Route::delete('/especialidades/excluir', 'EspecialidadesController@excluir')->middleware('auth');
 

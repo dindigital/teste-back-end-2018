@@ -6,12 +6,16 @@
     <div class="card-body">
 
 
-      <form method="POST" action="cadastrar" enctype="multipart/form-data"> 
-        @csrf
+      <form method="POST" action="{{isset($especialidade->id) ? '/admin/especialidades/editar': 'cadastrar'}}" enctype="multipart/form-data"> 
+          {{ csrf_field() }}
+        @if(isset($especialidade->id))
+        {{ method_field('PUT') }}
+        <input type="hidden" name='id' value="{{$especialidade->id}}"/>
+        @endif
         <div class="form-group row">
           <label for="especialidade" class="col-sm-4 col-form-label text-md-right">Especialidade</label>
           <div class="col-md-6">
-            <input id="especialidade" type="text" class="form-control" name="especialidade" value="{{isset($especialidade) ? $especialidade : '' }}" required autofocus />
+            <input id="especialidade" type="text" class="form-control" name="especialidade" value="{{ old('especialidade' , $especialidade->especialidade)}}" required autofocus />
           </div>
         </div>
         @if (count($errors) > 0)
